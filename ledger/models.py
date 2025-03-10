@@ -22,17 +22,19 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        # This method is used in templates to link to the recipe’s detail view.
+        from django.urls import reverse
         return reverse('recipe_detail', args=[str(self.id)])
 
 class RecipeIngredient(models.Model):
     quantity = models.CharField(max_length=50)
-    # Note: Follow the hint instructions for related_name:
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='recipe')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ingredients')
 
