@@ -7,11 +7,19 @@
 <body>
     <header>
         <h1>Recipe Book</h1>
+		{% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
     </header>
     <hr>
+	<h2>{% block page_title %}{% endblock %}</h2>
     <main>
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
 </body>
 </html>
