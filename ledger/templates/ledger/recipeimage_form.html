@@ -1,0 +1,13 @@
+{% extends 'ledger/base.html' %}
+{% load static %}
+
+{% block page_title %}Upload Image{% endblock %}
+
+{% block content %}
+<h3>Upload New Image for Recipe: {{ view.kwargs.pk }}</h3>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload Image</button>
+</form>
+{% endblock %}
