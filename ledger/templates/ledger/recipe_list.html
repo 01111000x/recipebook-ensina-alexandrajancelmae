@@ -5,7 +5,9 @@
 <ul>
     {% for recipe in recipes %}
         <li><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></li>
-		<p><a href="{% url 'recipe_add' %}">Add New Recipe</a></p>
+    {% empty %}
+        <li>No recipes available.</li>
     {% endfor %}
 </ul>
+<p><a href="{% url 'recipe_add' %}">Add New Recipe</a></p>
 {% endblock %}
