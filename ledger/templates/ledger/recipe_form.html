@@ -4,7 +4,6 @@
 {% block page_title %}Add New Recipe{% endblock %}
 
 {% block content %}
-<h3>Add New Recipe</h3>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
