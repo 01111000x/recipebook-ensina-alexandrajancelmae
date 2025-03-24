@@ -1,4 +1,5 @@
 {% extends 'ledger/base.html' %}
+{% load static %}
 
 {% block page_title %}Recipe Detail{% endblock %}
 
@@ -7,6 +8,7 @@
 <p>Author: {{ recipe.author.profile.name }}</p>
 <p>Created on: {{ recipe.created_on|date:"F j, Y, g:i a" }}</p>
 <p>Last updated: {{ recipe.updated_on|date:"F j, Y, g:i a" }}</p>
+
 <h3>Ingredients:</h3>
 <ul>
     {% for recipe_ingredient in recipe.ingredients.all %}
@@ -15,4 +17,20 @@
 		<li>No ingredients added yet.</li>
 	{% endfor %}
 </ul>
+
+<h3>Images:</h3>
+<ul>
+    {% for img in recipe.images.all %}
+        <li>
+            <img src="{{ img.image.url }}" alt="{{ img.description }}" style="max-width:300px;">
+            <p>{{ img.description }}</p>
+        </li>
+    {% empty %}
+        <li>No images yet.</li>
+    {% endfor %}
+</ul>
+
+<p>
+    <a href="{% url 'add_recipe_image' recipe.pk %}">Upload New Image</a>
+</p>
 {% endblock %}
