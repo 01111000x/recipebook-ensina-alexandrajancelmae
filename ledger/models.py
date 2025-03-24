@@ -17,7 +17,6 @@ class Ingredient(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        # Optional: if you plan to have an ingredient detail view.
         return reverse('ingredient_detail', args=[str(self.id)])
 
 class Recipe(models.Model):
@@ -40,3 +39,14 @@ class RecipeIngredient(models.Model):
 
     def __str__(self):
         return f"{self.quantity} of {self.ingredient.name} in {self.recipe.name}"
+
+class RecipeImage(models.Model):
+    image = models.ImageField(upload_to='recipe_images/')
+    description = models.CharField(max_length=255)
+    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, related_name='images')
+
+    def __str__(self):
+        return self.description
+
+    def get_absolute_url(self):
+        return reverse('recipe_detail', kwargs={'pk': self.recipe.pk})
